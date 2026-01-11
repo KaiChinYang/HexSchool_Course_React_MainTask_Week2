@@ -1,19 +1,10 @@
 import { useState } from "react";
-import axios from "axios";
 import "./assets/style.css";
+import api from "./api/axiosInstance";
 
 import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
-const API_PATH = import.meta.env.VITE_API_PATH;
-
-// 建立實體時指派預設配置
-const instance = axios.create({
-  baseURL: "https://ec-course-api.hexschool.io/v2",
-  loginURL: "https://ec-course-api.hexschool.io/v2/admin/signin",
-  getProductsURL: `${API_BASE}/api/${API_PATH}/admin/products`,
-});
 function App() {
   const [formData, setFormData] = useState({
     username: "",
@@ -32,18 +23,13 @@ function App() {
   const handleLogin = async (e) => {
     try {
       e.preventDefault();
-      const res = await axios.post(
-        `${instance.defaults.loginURL}`,
-        formData
-      );
+      const res = await api.login(formData);
       //console.log(res.data);
       const { token, expired } = res.data;
       //設定cookie
       document.cookie = `PAPAYA_KG_TOKEN=${token};expires=${new Date(
         expired
       )};`;
-      // 修改實體建立時所指派的預設配置
-      axios.defaults.headers.common["Authorization"] = token;
       setIsAuth(true);
       getProducts();
     } catch (error) {
@@ -58,9 +44,7 @@ function App() {
         .split("; ")
         .find((row) => row.startsWith("PAPAYA_KG_TOKEN="))
         ?.split("=")[1];
-      axios.defaults.headers.common["Authorization"] = token;
-
-      const res = await axios.post(`${API_BASE}/api/user/check`);
+      const res = await api.checkLogin();
       console.log(res.data);
     } catch (error) {
       console.dir(error.response);
@@ -68,7 +52,7 @@ function App() {
   };
   const getProducts = async () => {
     try {
-      const res = await axios.get(`${instance.defaults.getProductsURL}`);
+      const res = await api.getProducts();
       console.log(res.data);
       setProducts(res.data.products);
     } catch (error) {
