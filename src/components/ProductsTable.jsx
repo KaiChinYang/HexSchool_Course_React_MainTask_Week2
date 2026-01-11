@@ -1,6 +1,13 @@
-export default function ProductsTable({ products, onSelectProduct }) {
+export default function ProductsTable({ products, onSelectProduct, checkLogin }) {
   return (
     <div className="col-md-6">
+      <button
+        className="btn btn-danger mb-5"
+        type="button"
+        onClick={(e) => checkLogin(e)}
+      >
+        確認是否登入
+      </button>
       <h2>產品列表</h2>
       <table className="table">
         <thead>

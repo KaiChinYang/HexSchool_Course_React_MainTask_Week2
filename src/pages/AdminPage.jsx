@@ -7,12 +7,14 @@ export default function AdminPage({
   tempImgUrl,
   setTempProduct,
   setTempImgUrl,
+  checkLogin,
 }) {
   return (
     <div className="container">
       <div className="row mt-5">
         <ProductsTable
           products={products}
+          checkLogin={checkLogin}
           onSelectProduct={(product) => {
             setTempProduct(product);
             setTempImgUrl(product.imageUrl);

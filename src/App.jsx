@@ -205,6 +205,7 @@ function App() {
           tempImgUrl={tempImgUrl}
           setTempProduct={setTempProduct}
           setTempImgUrl={setTempImgUrl}
+          checkLogin={checkLogin}
         />
       ) : (
         <LoginPage
