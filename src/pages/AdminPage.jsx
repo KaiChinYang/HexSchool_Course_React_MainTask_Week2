@@ -21,6 +21,7 @@ export default function AdminPage({
           }}
         />
         <ProductDetail
+          products={products}
           product={tempProduct}
           tempImgUrl={tempImgUrl}
           setTempImgUrl={setTempImgUrl}

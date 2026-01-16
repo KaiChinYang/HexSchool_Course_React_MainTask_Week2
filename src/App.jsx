@@ -21,10 +21,9 @@ function App() {
     setFormData((preData) => ({ ...preData, [name]: value }));
   };
   const handleLogin = async (e) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
       const res = await api.login(formData);
-      //console.log(res.data);
       const { token, expired } = res.data;
       //設定cookie
       document.cookie = `PAPAYA_KG_TOKEN=${token};expires=${new Date(
@@ -35,6 +34,7 @@ function App() {
     } catch (error) {
       console.dir(error.response);
       setIsAuth(false);
+      alert("登入失敗", error.response?.data.message);
     }
   };
   const checkLogin = async (e) => {
@@ -53,10 +53,10 @@ function App() {
   const getProducts = async () => {
     try {
       const res = await api.getProducts();
-      console.log(res.data);
       setProducts(res.data.products);
     } catch (error) {
       console.dir(error.response);
+      alert("取得產品列表失敗", error.response?.data.message);
     }
   };
 

@@ -1,8 +1,15 @@
-export default function ProductDetail({ product, tempImgUrl, setTempImgUrl }) {
+export default function ProductDetail({
+  product,
+  products,
+  tempImgUrl,
+  setTempImgUrl,
+}) {
   if (!product) {
     return <div className="col-md-6 text-secondary">請選擇一個商品查看</div>;
   }
-
+  if(products.length === 0){
+    return <div className="col-md-6 text-secondary">無任何產品資料</div>;
+  }
   //allImages:合併Url
   const allImages = product ? [product.imageUrl, ...product.imagesUrl] : [];
 

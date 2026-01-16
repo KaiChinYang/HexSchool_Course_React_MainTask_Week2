@@ -12,11 +12,13 @@ export default function LoginPage({
         <div className="form-floating mb-3">
           <input
             type="email"
-            className="form-control"
+            className="form-control"  
             name="username"
             value={formData.username}
             onChange={handleInputChange}
             required
+            placeholder="請輸入帳號"
+            id="username"
           />
           <label>Email address</label>
         </div>
@@ -29,6 +31,8 @@ export default function LoginPage({
             value={formData.password}
             onChange={handleInputChange}
             required
+            placeholder="請輸入密碼"
+            id="password"
           />
           <label>Password</label>
         </div>
